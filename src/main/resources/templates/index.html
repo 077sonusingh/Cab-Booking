@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>SwiftRide Gurgaon</title>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+body {
+	background: #f5f5f5;
+}
+
+.top-header {
+	background: #1f2937;
+	color: white;
+	padding: 10px 0;
+}
+
+.top-header i {
+	color: yellow;
+	margin-right: 15px;
+	font-size: 20px;
+}
+
+.phone {
+	color: yellow;
+	font-weight: bold;
+}
+
+.logo {
+	height: 70px;
+}
+
+.booking-section {
+	background: black;
+	padding: 40px;
+}
+
+.booking-title {
+	color: #00ff00;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+.btn-fare {
+	background: #0d6efd;
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+	padding: 10px 40px;
+}
+
+.fare-box {
+	background: #198754;
+	color: white;
+	padding: 15px;
+	border-radius: 8px;
+	text-align: center;
+	font-size: 24px;
+}
+
+.card {
+	transition: 0.4s;
+}
+
+.card:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 15px 30px rgba(0, 0, 0, .2) !important;
+}
+
+.rounded-circle {
+	object-fit: cover;
+}
+
+
+footer a{
+    transition:0.3s;
+}
+
+footer a:hover{
+    color:#ffc107 !important;
+    padding-left:5px;
+}
+
+footer i{
+    margin-right:6px;
+}
+
+footer{
+    background:linear-gradient(to right,#1b1b1b,#2d3436);
+}
+</style>
+
+</head>
+
+<body>
+
+	<!-- Top Header -->
+
+	<div class="top-header">
+
+		<div class="container d-flex justify-content-between">
+
+			<div>
+				<a href="https://www.facebook.com/share/17rBUge3w5/"><i
+					class="fab fa-facebook-square"></i></a> <a
+					href="https://x.com/SonuKum18594405"><i class="fab fa-twitter"></i></a>
+				<a href="https://www.instagram.com/s07.exec?igsh=cWd6OXpiMW91a3lp"><i
+					class="fab fa-instagram"></i></a>
+
+
+
+			</div>
+
+			<div class="phone">+91 8002467030</div>
+
+		</div>
+
+	</div>
+
+	<!-- Navbar -->
+
+	<nav class="navbar navbar-expand-lg bg-white shadow">
+
+		<div class="container">
+
+			<a class="navbar-brand" href="#"> <img
+				src="/images/logo.png" class="logo">
+			</a>
+
+			<button class="navbar-toggler" data-bs-toggle="collapse"
+				data-bs-target="#menu">
+
+				<span class="navbar-toggler-icon"></span>
+
+			</button>
+
+			<div class="collapse navbar-collapse" id="menu">
+
+				<ul class="navbar-nav ms-auto">
+
+					<li class="nav-item"><a class="nav-link active" href="/">Home</a>
+					</li>
+
+					<li class="nav-item"><a class="nav-link" th:href="@{/about}">About
+							Us</a></li>
+
+					<!-- <li class="nav-item"><a class="nav-link" href="@{/payment}">Payment</a>
+					</li> -->
+
+					<li class="nav-item"><a class="nav-link" th:href="@{/contact}">Contact
+							Us</a></li>
+
+				</ul>
+
+			</div>
+
+		</div>
+
+	</nav>
+
+	<!-- Booking Form -->
+
+	<div class="booking-section">
+
+		<div class="container">
+
+			<h2 class="booking-title">SwiftRide Gurgaon</h2>
+
+			<!-- <form th:action="@{/checkFare}" th:object="${booking}" method="post"> -->
+			<form th:action="@{/bookCab}" th:object="${booking}" method="post">
+
+				<div class="row">
+
+					<div class="col-md-6 mb-4">
+
+						<input type="text" class="form-control form-control-lg"
+							placeholder="Pickup City" th:field="*{pickupCity}">
+
+					</div>
+
+					<div class="col-md-6 mb-4">
+
+						<select class="form-select form-select-lg" th:field="*{tripType}">
+
+							<option value="">Select Trip</option>
+							<option value="One Way Cab">One Way Cab</option>
+							<option value="Round Trip">Round Trip</option>
+
+						</select>
+
+					</div>
+
+					<div class="col-md-6 mb-4">
+
+						<input type="text" class="form-control form-control-lg"
+							placeholder="Drop City" th:field="*{dropCity}">
+
+					</div>
+
+					<div class="col-md-6 mb-4">
+
+						<select class="form-select form-select-lg" th:field="*{cabType}">
+
+							<option value="">Select Cab</option>
+
+							<option value="Sedan Cab">Maruti Cab</option>
+
+							<option value="SUV Cab">fortuner Cab</option>
+
+							<option value="Luxury Cab">Luxury Cab</option>
+
+						</select>
+
+					</div>
+
+					<div class="col-md-6 mb-4">
+
+						<input type="date" class="form-control form-control-lg"
+							th:field="*{travelDate}">
+
+					</div>
+
+					<div class="col-md-6 mb-4">
+
+						<input type="text" class="form-control form-control-lg"
+							placeholder="Enter Mobile Number" maxlength="10"
+							th:field="*{mobileNumber}">
+
+					</div>
+
+					<div class="col-md-6 mb-4">
+						<input type="email" class="form-control form-control-lg"
+							placeholder="Enter Email Address" th:field="*{email}" required>
+					</div>
+
+					<div class="text-center">
+
+						<button class="btn btn-primary btn-lg px-5" type="submit">
+
+							Book Now</button>
+
+					</div>
+
+				</div>
+
+			</form>
+
+			<br>
+
+			<!-- <div th:if="${fare!=null}" class="fare-box">
+
+				Estimated Fare : ₹ <span th:text="${fare}"></span>
+
+			</div> -->
+
+			<br>
+
+			<div th:if="${message!=null}" class="alert alert-success">
+
+				<span th:text="${message}"></span>
+
+			</div>
+
+			<!-- Book Cab Button -->
+
+			<!-- <div class="text-center mt-4" th:if="${fare!=null}">
+
+				<form th:action="@{/bookCab}" th:object="${booking}" method="post">
+
+					<input type="hidden" th:field="*{pickupCity}"> <input
+						type="hidden" th:field="*{dropCity}"> <input type="hidden"
+						th:field="*{travelDate}"> <input type="hidden"
+						th:field="*{tripType}"> <input type="hidden"
+						th:field="*{cabType}"> <input type="hidden"
+						th:field="*{mobileNumber}"> <input type="hidden"
+						th:field="*{fare}">
+
+					<button class="btn btn-success btn-lg">Book Now</button>
+
+				</form>
+
+			</div> -->
+
+		</div>
+
+		<!-- ================= Customer Reviews ================= -->
+
+		<section class="py-5 bg-light">
+
+			<div class="container">
+
+				<h2 class="text-center mb-5">Customer Reviews</h2>
+
+				<div class="row">
+
+					<div class="col-md-4 mb-4" th:each="review : ${reviews}">
+
+						<div class="card shadow h-100">
+
+							<div class="card-body">
+
+								<h5 th:text="${review.customerName}"></h5>
+
+								<small class="text-muted" th:text="${review.city}"></small>
+
+								<div class="text-warning my-2">
+
+									<span th:each="i : ${#numbers.sequence(1, review.rating)}">
+										★ </span>
+
+								</div>
+
+								<p th:text="${review.reviewMessage}"></p>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+
+
+			</div>
+
+		</section>
+
+
+
+		<!-- ===================== FOOTER ===================== -->
+
+		<footer class="bg-dark text-light pt-5 pb-3 mt-5">
+
+			<div class="container">
+
+				<div class="row">
+
+					<!-- Company Info -->
+
+					<div class="col-lg-4 col-md-6 mb-4">
+
+						<h3 class="text-warning fw-bold">
+							<i class="fas fa-taxi"></i> SwiftRide Gurugaon
+						</h3>
+
+						<p class="mt-3 text-light">We provide safe, reliable, and
+							affordable taxi services for local, outstation, airport
+							transfers, and corporate travel. Our mission is to make every
+							journey comfortable and memorable.</p>
+
+						<div class="mt-3">
+
+							<a href="https://www.facebook.com/share/17rBUge3w5/"><i
+								class="fab fa-facebook-square"></i></a> <a
+								href="https://x.com/SonuKum18594405"><i
+								class="fab fa-twitter"></i></a> <a
+								href="https://www.instagram.com/s07.exec?igsh=cWd6OXpiMW91a3lp"><i
+								class="fab fa-instagram"></i></a> <a href="#"
+								class="text-warning fs-4"> <i class="fab fa-linkedin"></i>
+							</a>
+
+						</div>
+
+					</div>
+
+					<!-- Quick Links -->
+
+					<div class="col-lg-2 col-md-6 mb-4">
+
+						<h5 class="text-warning mb-3">Quick Links</h5>
+
+						<ul class="list-unstyled">
+
+							<li class="mb-2"><a href="/"
+								class="text-light text-decoration-none"> Home </a></li>
+
+							<li class="mb-2"><a href="/about"
+								class="text-light text-decoration-none"> About Us </a></li>
+
+							<li class="mb-2"><a href="/contact"
+								class="text-light text-decoration-none"> Contact Us </a></li>
+
+							<li class="mb-2"><a href="/payment"
+								class="text-light text-decoration-none"> Payment </a></li>
+
+						</ul>
+
+					</div>
+
+					<!-- Services -->
+
+					<div class="col-lg-3 col-md-6 mb-4">
+
+						<h5 class="text-warning mb-3">Our Services</h5>
+
+						<ul class="list-unstyled">
+
+							<li class="mb-2"><i class="fas fa-check-circle text-success"></i>
+								Local Taxi Service</li>
+
+							<li class="mb-2"><i class="fas fa-check-circle text-success"></i>
+								Airport Pickup & Drop</li>
+
+							<li class="mb-2"><i class="fas fa-check-circle text-success"></i>
+								Outstation Trips</li>
+
+							<li class="mb-2"><i class="fas fa-check-circle text-success"></i>
+								Corporate Booking</li>
+
+							<li class="mb-2"><i class="fas fa-check-circle text-success"></i>
+								24×7 Cab Service</li>
+
+						</ul>
+
+					</div>
+
+					<!-- Contact -->
+
+					<div class="col-lg-3 col-md-6 mb-4">
+
+						<h5 class="text-warning mb-3">Contact Us</h5>
+
+						<p>
+							<i class="fas fa-map-marker-alt text-danger"></i> Gurugaon,
+							Delhi, India
+						</p>
+
+						<p>
+							<i class="fas fa-phone text-success"></i> +91 8002467030
+						</p>
+
+						<p>
+							<i class="fas fa-envelope text-warning"></i>
+							077.sonusingh@gmail.com
+						</p>
+
+						<p>
+							<i class="fas fa-clock text-info"></i> Open 24 Hours
+						</p>
+
+					</div>
+
+				</div>
+
+				<hr class="border-secondary">
+
+				<div class="text-center">
+
+					<p class="mb-1">
+
+						© 2026 <span class="text-warning fw-bold"> SwiftRide
+							Gurugaon </span> | All Rights Reserved.
+
+					</p>
+
+					<small class="text-secondary"> Designed & Developed using
+						Spring Boot, Thymeleaf, Bootstrap & MySQL </small>
+
+				</div>
+
+			</div>
+
+		</footer>
+
+
+
+
+
+
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
