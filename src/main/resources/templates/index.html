@@ -80,23 +80,76 @@ body {
 	object-fit: cover;
 }
 
-
-footer a{
-    transition:0.3s;
+footer a {
+	transition: 0.3s;
 }
 
-footer a:hover{
-    color:#ffc107 !important;
-    padding-left:5px;
+footer a:hover {
+	color: #ffc107 !important;
+	padding-left: 5px;
 }
 
-footer i{
-    margin-right:6px;
+footer i {
+	margin-right: 6px;
 }
 
-footer{
-    background:linear-gradient(to right,#1b1b1b,#2d3436);
+footer {
+	background: linear-gradient(to right, #1b1b1b, #2d3436);
 }
+
+.review-section {
+	background: linear-gradient(to right, #f8f9fa, #eef6ff);
+	padding: 70px 0;
+}
+
+.review-title {
+	font-size: 40px;
+	font-weight: bold;
+	text-align: center;
+	color: #0d6efd;
+	margin-bottom: 50px;
+}
+
+.review-card {
+	border: none;
+	border-radius: 20px;
+	overflow: hidden;
+	transition: .4s;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, .12);
+}
+
+.review-card:hover {
+	transform: translateY(-12px);
+	box-shadow: 0 20px 40px rgba(0, 0, 0, .25);
+}
+
+.review-img {
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 4px solid #0d6efd;
+}
+
+.star {
+	color: #ffc107;
+	font-size: 20px;
+}
+
+.review-text {
+	color: #555;
+	min-height: 90px;
+}
+
+.city {
+	color: #6c757d;
+}
+
+.review-footer {
+	background: #f8f9fa;
+	padding: 12px;
+}
+
 </style>
 
 </head>
@@ -132,8 +185,8 @@ footer{
 
 		<div class="container">
 
-			<a class="navbar-brand" href="#"> <img
-				src="/images/logo.png" class="logo">
+			<a class="navbar-brand" href="#"> <img src="/images/logo.png"
+				class="logo">
 			</a>
 
 			<button class="navbar-toggler" data-bs-toggle="collapse"
@@ -178,75 +231,123 @@ footer{
 			<!-- <form th:action="@{/checkFare}" th:object="${booking}" method="post"> -->
 			<form th:action="@{/bookCab}" th:object="${booking}" method="post">
 
-				<div class="row">
+				<div class="row g-4">
 
-					<div class="col-md-6 mb-4">
+					<!-- Pickup City -->
+					<div class="col-lg-6">
 
-						<input type="text" class="form-control form-control-lg"
-							placeholder="Pickup City" th:field="*{pickupCity}">
+						<label class="form-label text-white fw-bold"> <i
+							class="fa-solid fa-location-dot text-warning"></i> Pickup
+							Location
+						</label> <input type="text" id="pickupCity"
+							class="form-control form-control-lg shadow-sm"
+							placeholder="Enter Pickup City" autocomplete="off"
+							th:field="*{pickupCity}">
+
+						<div id="pickupSuggestions"
+							class="list-group position-absolute w-100"></div>
 
 					</div>
 
-					<div class="col-md-6 mb-4">
+					<!-- Trip Type -->
+					<div class="col-lg-6">
 
-						<select class="form-select form-select-lg" th:field="*{tripType}">
+						<label class="form-label text-white fw-bold"> <i
+							class="fa-solid fa-route text-warning"></i> Trip Type
+						</label> <select class="form-select form-select-lg" th:field="*{tripType}">
 
 							<option value="">Select Trip</option>
-							<option value="One Way Cab">One Way Cab</option>
+							<option value="One Way Cab">One Way</option>
 							<option value="Round Trip">Round Trip</option>
 
 						</select>
 
 					</div>
 
-					<div class="col-md-6 mb-4">
+					<!-- Drop -->
+					<div class="col-lg-6">
 
-						<input type="text" class="form-control form-control-lg"
-							placeholder="Drop City" th:field="*{dropCity}">
+						<label class="form-label text-white fw-bold"> <i
+							class="fa-solid fa-location-crosshairs text-success"></i> Drop
+							Location
+						</label> <input type="text" id="dropCity"
+							class="form-control form-control-lg shadow-sm"
+							placeholder="Enter Drop City" autocomplete="off"
+							th:field="*{dropCity}">
+
+						<div id="dropSuggestions"
+							class="list-group position-absolute w-100"></div>
 
 					</div>
 
-					<div class="col-md-6 mb-4">
+					<!-- Cab -->
+					<div class="col-lg-6">
 
-						<select class="form-select form-select-lg" th:field="*{cabType}">
+						<label class="form-label text-white fw-bold"> <i
+							class="fa-solid fa-car text-info"></i> Select Cab
+						</label> <select class="form-select form-select-lg" th:field="*{cabType}">
 
-							<option value="">Select Cab</option>
-
-							<option value="Sedan Cab">Maruti Cab</option>
-
-							<option value="SUV Cab">fortuner Cab</option>
-
-							<option value="Luxury Cab">Luxury Cab</option>
+							<option value="">Choose Cab</option>
+							<option value="Sedan Cab">🚗 Sedan</option>
+							<option value="SUV Cab">🚙 SUV</option>
+							<option value="Luxury Cab">👑 Luxury</option>
 
 						</select>
 
 					</div>
 
-					<div class="col-md-6 mb-4">
+					<!-- Date -->
+					<div class="col-lg-6">
 
-						<input type="date" class="form-control form-control-lg"
+						<label class="form-label text-white fw-bold"> <i
+							class="fa-solid fa-calendar-days text-danger"></i> Travel Date
+						</label> <input type="date" class="form-control form-control-lg"
 							th:field="*{travelDate}">
 
 					</div>
 
-					<div class="col-md-6 mb-4">
+					<!-- Mobile -->
+					<div class="col-lg-6">
 
-						<input type="text" class="form-control form-control-lg"
-							placeholder="Enter Mobile Number" maxlength="10"
+						<label class="form-label text-white fw-bold"> <i
+							class="fa-solid fa-phone text-success"></i> Mobile Number
+						</label> <input type="text" class="form-control form-control-lg"
+							maxlength="10" placeholder="Enter Mobile Number"
 							th:field="*{mobileNumber}">
 
 					</div>
 
-					<div class="col-md-6 mb-4">
-						<input type="email" class="form-control form-control-lg"
-							placeholder="Enter Email Address" th:field="*{email}" required>
+					<!-- Email -->
+					<div class="col-12">
+
+						<label class="form-label text-white fw-bold"> <i
+							class="fa-solid fa-envelope text-warning"></i> Email Address
+						</label> <input type="email" class="form-control form-control-lg"
+							placeholder="Enter Email Address" th:field="*{email}">
 					</div>
 
-					<div class="text-center">
+					<!-- Route Button -->
+					<div class="col-12 text-center mt-3">
 
-						<button class="btn btn-primary btn-lg px-5" type="submit">
+						<button type="button" onclick="openGoogleMap()"
+							class="btn btn-outline-warning btn-lg px-5 rounded-pill">
 
-							Book Now</button>
+							<i class="fa-solid fa-map-location-dot"></i> View Route on Google
+							Maps
+
+						</button>
+
+					</div>
+
+					<!-- Book Button -->
+					<div class="col-12 text-center mt-2">
+
+						<button
+							class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow">
+
+							<i class="fa-solid fa-taxi"></i> Book Taxi Now
+
+						</button>
 
 					</div>
 
@@ -294,32 +395,44 @@ footer{
 
 		<!-- ================= Customer Reviews ================= -->
 
-		<section class="py-5 bg-light">
+		<section class="review-section">
 
 			<div class="container">
 
-				<h2 class="text-center mb-5">Customer Reviews</h2>
+				<h2 class="review-title">⭐ What Our Customers Say</h2>
 
-				<div class="row">
+				<div class="row g-4">
 
-					<div class="col-md-4 mb-4" th:each="review : ${reviews}">
+					<div class="col-lg-4 col-md-6" th:each="review : ${reviews}">
 
-						<div class="card shadow h-100">
+						<div class="card review-card h-100">
 
-							<div class="card-body">
+							<div class="card-body text-center">
 
-								<h5 th:text="${review.customerName}"></h5>
+								<!-- Customer Image -->
+								<img th:src="@{/review/image/{id}(id=${review.reviewId})}"
+									class="review-img">
 
-								<small class="text-muted" th:text="${review.city}"></small>
+								<h5 class="fw-bold" th:text="${review.customerName}"></h5>
 
-								<div class="text-warning my-2">
+								<div class="city mb-2">
+									📍 <span th:text="${review.city}"></span>
+								</div>
 
-									<span th:each="i : ${#numbers.sequence(1, review.rating)}">
+								<div class="star mb-3">
+
+									<span th:each="i : ${#numbers.sequence(1,review.rating)}">
 										★ </span>
 
 								</div>
 
-								<p th:text="${review.reviewMessage}"></p>
+								<p class="review-text" th:text="${review.reviewMessage}"></p>
+
+							</div>
+
+							<div class="review-footer text-center">
+
+								<small class="text-success"> ✔ Verified Customer </small>
 
 							</div>
 
@@ -329,11 +442,35 @@ footer{
 
 				</div>
 
-
-
 			</div>
 
 		</section>
+
+		<!-- pagination -->
+
+
+		<nav class="mt-5">
+			<ul class="pagination justify-content-center">
+
+				<li class="page-item"
+					th:classappend="${currentPage==0} ? 'disabled'"><a
+					class="page-link" th:href="@{/(page=${currentPage-1})}"> ←
+						Previous </a></li>
+
+				<li class="page-item"
+					th:each="i:${#numbers.sequence(0,totalPages-1)}"
+					th:classappend="${i==currentPage} ? 'active'"><a
+					class="page-link" th:text="${i+1}" th:href="@{/(page=${i})}"> </a>
+
+				</li>
+
+				<li class="page-item"
+					th:classappend="${currentPage+1>=totalPages} ? 'disabled'"><a
+					class="page-link" th:href="@{/(page=${currentPage+1})}"> Next →
+				</a></li>
+
+			</ul>
+		</nav>
 
 
 
@@ -479,8 +616,97 @@ footer{
 
 	</div>
 
+	<script>
+
+function autoComplete(inputId, suggestionId){
+
+const input=document.getElementById(inputId);
+
+const suggestions=document.getElementById(suggestionId);
+
+input.addEventListener("keyup",function(){
+
+let keyword=input.value;
+
+if(keyword.length<1){
+
+suggestions.innerHTML="";
+
+return;
+
+}
+
+fetch("/cities?keyword="+keyword)
+
+.then(response=>response.json())
+
+.then(data=>{
+
+suggestions.innerHTML="";
+
+data.forEach(city=>{
+
+let item=document.createElement("a");
+
+item.className="list-group-item list-group-item-action";
+
+item.innerHTML=city.cityName;
+
+item.onclick=function(){
+
+input.value=city.cityName;
+
+suggestions.innerHTML="";
+
+};
+
+suggestions.appendChild(item);
+
+});
+
+});
+
+});
+
+}
+
+autoComplete("pickupCity","pickupSuggestions");
+
+autoComplete("dropCity","dropSuggestions");
+
+</script>
+
+	<script>
+
+function openGoogleMap() {
+
+    let pickup = document.getElementById("pickupCity").value.trim();
+    let drop = document.getElementById("dropCity").value.trim();
+
+    if (pickup === "" || drop === "") {
+        alert("Please enter Pickup and Drop locations.");
+        return;
+    }
+
+    let url =
+        "https://www.google.com/maps/dir/"
+        + encodeURIComponent(pickup)
+        + "/"
+        + encodeURIComponent(drop);
+
+    window.open(url, "_blank");
+}
+
+</script>
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+	</script>
 
 </body>
 </html>
